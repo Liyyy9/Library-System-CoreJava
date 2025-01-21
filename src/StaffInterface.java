@@ -49,7 +49,7 @@ public class StaffInterface {
                         """);
                 System.exit(0);
             }
-            default -> System.out.println("Invalid entry!");
+            default -> System.out.println("WRONG entry!");
         }
     }
 
@@ -74,6 +74,7 @@ public class StaffInterface {
 
     private void deleteStaff() {
     }
+
 
 
 }
