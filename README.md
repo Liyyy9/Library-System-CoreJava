@@ -139,3 +139,6 @@ I would like to expand the project with the following features:
 - **Web-Based Interface**
 
   - Developing a user-friendly front-end web interface using HTML, CSS, and JavaScript for better usability.
+
+## Showcase
+![library-system-java.gif](..%2F..%2F..%2FVideos%2FCaptures%2Flibrary-system-java.gif)

@@ -51,20 +51,19 @@ public class Members {
         }
 
         System.out.println("New name: ");
-        String newName = scanner.nextLine();
+        String cleanedNewName = cleanInput(scanner.nextLine());
         System.out.println("New email: ");
-        String newEmail = scanner.nextLine();
-        setEmail(newEmail);
+        String cleanedNewEmail = cleanInput(scanner.nextLine());
 
         memberList.remove(cleanedSearchedName);
-        memberList.put(newName, newEmail);
+        memberList.put(cleanedNewName, cleanedNewEmail);
 
         System.out.printf("""
                 
                 Member details updated successfully!
                 Name: %s
                 Email: %s
-                """, newName, newEmail);
+                """, cleanedNewName, cleanedNewEmail);
     }
 
     public HashMap<String, String> getMemberList() {
