@@ -1,10 +1,10 @@
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class MemberInterface {
-    private Members members = new Members();
+    private final Members members = new Members();
     private UserInterface userInterface;
+    private boolean running = true;
 
     public MemberInterface(){   }
 
@@ -13,88 +13,85 @@ public class MemberInterface {
     }
 
     public void start(Scanner scanner) {
-        while (true) {
-            System.out.println("""
+        while (running) {
+            System.out.print("""
+                    
                     =======================================================================
                     
                     Member Options:
                     1. Sign up new member.
                     2. Edit existing member.
-                    3. Find a member's email by their name.
-                    4. Find a member's name by their email.
-                    5. Member list.
-                    6. Delete member.
-                    7. Back to main menu.
-                    8. Quit program.
+                    3. Find a member's details.
+                    4. Member list.
+                    5. Delete member.
+                    6. Back to main menu.
+                    7. Quit program.
                     
                     Choose option: \s""");
             String input = scanner.nextLine();
 
-            inputReader(input);
+            inputReader(input, scanner);
         }
     }
 
-    public void inputReader(String input) {
+    public void inputReader(String input, Scanner scanner) {
         switch (input) {
-            case "1" -> signUp();
-            case "2" -> editMember();
-            case "3" -> searchByName();
-            case "4" -> searchByEmail();
-            case "5" -> listMembers();
-            case "6" -> deleteMember();
-            case "7" -> userInterface.start();
-            case "8" -> {
+            case "1" -> signUp(scanner);
+            case "2" -> editMember(scanner);
+            case "3" -> searchByName(scanner);
+            case "4" -> listMembers();
+            case "5" -> deleteMember(scanner);
+            case "6" -> userInterface.start(scanner);
+            case "7" -> {
                 System.out.println("""
+                        
                         Thank you for using our Library System! Goodbye!
                         =======================================================================
                         """);
-                System.exit(0);
+                running = false;
+                userInterface.end();
             }
-            default -> System.out.println("Invalid entry!");
+            default -> System.out.println("\nInvalid option!");
         }
     }
 
-    public void signUp() {
-        System.out.println("Name: ");
+    public void signUp(Scanner scanner) {
+        System.out.print("\nName: ");
         String name = scanner.nextLine();
 
-        System.out.println("Email: ");
+        System.out.print("Email: ");
         String email = scanner.nextLine();
 
         members.add(name, email);
     }
 
-    public void editMember() {
-        System.out.println("Search for (name): ");
+    public void editMember(Scanner scanner) {
+        System.out.print("\nSearch for (name): ");
         String searchedName = scanner.nextLine();
 
         members.edit(searchedName, scanner);
     }
 
-    public void searchByName() {
-        System.out.println("Search for (name): ");
+    public void searchByName(Scanner scanner) {
+        System.out.print("\nSearch for (name): ");
         String searchedName = scanner.nextLine();
 
         members.searchbyName(searchedName);
     }
 
-    public void searchByEmail() {
-        System.out.println("Search for (email): ");
-        String searchedEmail = scanner.nextLine();
-
-        members.searchbyEmail(searchedEmail);
-    }
-
-    public void deleteMember() {
-        System.out.println("Name of member to delete: ");
+    public void deleteMember(Scanner scanner) {
+        System.out.print("\nName of member to delete: ");
         String searchedName = scanner.nextLine();
 
         members.delete(searchedName);
     }
 
     public void listMembers() {
+        if(members.getMemberList().isEmpty()){
+            System.out.println("\nList is currently empty!\n");
+        }
+
         System.out.println("List of Members:");
-        // Access the memberList from the Members instance
         for (Map.Entry<String, String> member : members.getMemberList().entrySet()) {
             System.out.println("Name: " + member.getKey() + ", Email: " + member.getValue());
         }

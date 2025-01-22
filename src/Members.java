@@ -1,11 +1,10 @@
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Members {
     private String name;
     private String email;
-    private HashMap<String, String> memberList;
+    protected HashMap<String, String> memberList;
 
     public Members() {
         this.memberList = new HashMap<>();
@@ -34,21 +33,20 @@ public class Members {
     }
 
     public void add(String name, String email) {
-        if(memberList.containsValue(email)){
-            System.out.println("Member already exists!");
+        if (memberList.containsValue(email)) {
+            System.out.println("\nMember already exists!");
             return;
         }
         String cleanedName = cleanInput(name);
         String cleanedEmail = cleanInput(email);
         memberList.put(cleanedName, cleanedEmail);
-        System.out.println(memberList);
-        System.out.printf("New member successfully registered! Welcome %s!\n", name);
+        System.out.printf("\nNew member successfully registered! Welcome %s!\n", name);
     }
 
     public void edit(String searchedName, Scanner scanner) {
         String cleanedSearchedName = searchedName.toLowerCase().trim();
         if (!memberList.containsKey(cleanedSearchedName)) {
-            System.out.printf("No member with the name '%s' found!\n", searchedName);
+            System.out.printf("\nNo member with the name '%s' found!\n", searchedName);
             return;
         }
 
@@ -61,43 +59,35 @@ public class Members {
         memberList.remove(cleanedSearchedName);
         memberList.put(newName, newEmail);
 
-        System.out.printf("Member details updated: \nName: %s\nEmail: %s", newName, newEmail);
-        System.out.println(memberList);
+        System.out.printf("""
+                
+                Member details updated successfully!
+                Name: %s
+                Email: %s
+                """, newName, newEmail);
     }
 
-    public HashMap<String, String> getMemberList(){
+    public HashMap<String, String> getMemberList() {
         return memberList;
     }
 
-    public void searchbyName(String searchedName){
+    public void searchbyName(String searchedName) {
         String cleanedName = cleanInput(searchedName);
-        if (memberList.isEmpty()) System.out.println("List is empty!");
-        System.out.println("Email: " + memberList.getOrDefault(cleanedName, "No member found!"));
+        if (memberList.isEmpty()) System.out.println("\nList is empty!");
+        System.out.println("\nName: " + searchedName + ", Email: " + memberList.getOrDefault(cleanedName, "\nNo member found!"));
     }
 
-    public void searchbyEmail(String searchedEmail){
-        String cleanedEmail = cleanInput(searchedEmail);
-        if (memberList.isEmpty()) System.out.println("List is empty!");
-
-        for(Map.Entry<String, String> entry : memberList.entrySet()) {
-            if(entry.getValue().equals(cleanedEmail)){
-                System.out.println("Name: " + entry.getKey());
-                return;
-            }
-        }
-    }
-
-    public void delete(String searchedName){
+    public void delete(String searchedName) {
         String cleanName = cleanInput(searchedName);
-        if(!memberList.containsKey(cleanName)){
-            System.out.println("No member found!");
+        if (!memberList.containsKey(cleanName)) {
+            System.out.println("\nNot found!");
             return;
         }
         memberList.remove(cleanName);
-        System.out.println("Member removed successfully!");
+        System.out.println("\nSuccessfully deleted!");
     }
 
-    public String cleanInput(String input){
+    public String cleanInput(String input) {
         return input.toLowerCase().trim();
     }
 

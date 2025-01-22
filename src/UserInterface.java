@@ -1,14 +1,13 @@
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class UserInterface {
-    private Scanner scanner = new Scanner(System.in);
     private MemberInterface memberInterface;
     private StaffInterface staffInterface;
+    private boolean running;
 
     public UserInterface() {
+        this.running = true;
     }
 
     public void setMemberInterface(MemberInterface memberInterface) {
@@ -19,10 +18,11 @@ public class UserInterface {
         this.staffInterface = staffInterface;
     }
 
-    public void start() {
-        System.out.println("=======================================================================");
-        while (true) {
+    public void start(Scanner scanner) {
+        System.out.println("\n=======================================================================");
+        while (running) {
             System.out.println("""
+                    
                     Welcome to our Library System. Please choose from the options below.
                     1. Members.
                     2. Staff.
@@ -32,25 +32,32 @@ public class UserInterface {
                     Choose option:\s""");
             String input = scanner.nextLine();
 
-            inputReader(input);
+            inputReader(input, scanner);
         }
     }
 
-    public void inputReader(String input) {
+    public void inputReader(String input, Scanner scanner) {
         switch (input) {
             case "1" -> memberInterface.start(scanner);
             case "2" -> staffInterface.start(scanner);
             case "4" -> {
                 System.out.println("""
+                        
                         Thank you for using our Library System! Goodbye!
                         =======================================================================
                         """);
+                running = false;
                 System.exit(0);
             }
             default -> System.out.println("""
+                   
                    Invalid entry!
                    =======================================================================
-                    """);
+                   """);
         }
+    }
+
+    public void end(){
+        System.exit(0);
     }
 }

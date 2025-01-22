@@ -1,5 +1,8 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
         UserInterface userInterface = new UserInterface();
         MemberInterface memberInterface = new MemberInterface();
@@ -12,7 +15,8 @@ public class Main {
         staffInterface.setUserInterface(userInterface);
 
         // Start the user interface
-        userInterface.start();
+        userInterface.start(scanner);
 
+        scanner.close();
     }
 }
