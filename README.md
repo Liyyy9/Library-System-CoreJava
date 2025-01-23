@@ -20,7 +20,7 @@ I wanted to practice what I've learnt in **MOOC Fi University of Helsinki** onli
 
   - Retrieve member details by name or email.
 
-- **Staff Management**
+- **Model.Staff Management**
 
   - Add, edit, search, and delete staff members.
 
@@ -28,7 +28,7 @@ I wanted to practice what I've learnt in **MOOC Fi University of Helsinki** onli
 
 - **Inheritance**
 
-  - The ```Staff``` class extends the ```Members``` class, inheriting its properties and methods while adding staff-specific functionality (e.g., roles).
+  - The ```Model.Staff``` class extends the ```Model.Members``` class, inheriting its properties and methods while adding staff-specific functionality (e.g., roles).
 
 - **User Interface**
 
@@ -50,23 +50,23 @@ I wanted to practice what I've learnt in **MOOC Fi University of Helsinki** onli
 
 ## Class Structure
 
--  ```Members```
+-  ```Model.Members```
 
     - Handles general member functionality, including storing and managing member data using a ```HashMap```.
 
-- ```Staff```
+- ```Model.Staff```
 
-    - Extends ```Members``` to include role-specific functionality for staff members, utilizing a ```HashMap``` with ```ArrayList``` values to store email and role.
+    - Extends ```Model.Members``` to include role-specific functionality for staff members, utilizing a ```HashMap``` with ```ArrayList``` values to store email and role.
 
-- ```MemberInterface```
+- ```Controller.MemberController```
 
   - Provides methods for user interaction and operations related to members.
 
-- ```StaffInterface```
+- ```Controller.StaffController```
 
   - Provides methods for user interaction and operations related to staff.
 
-- ```UserInterface```
+- ```Controller.UserInterface```
 
   - Acts as the central hub for user input, directing actions to the appropriate interfaces.
 <br />
@@ -92,12 +92,12 @@ Email: john.doe@example.com
 New member successfully registered! Welcome John Doe!
 =======================================================================
 
-Staff Options:
+Model.Staff Options:
 1. Register new staff.
 2. Edit existing staff.
 3. Find a staff's details.
 4. Search staffs under a certain Role.
-5. Staff list.
+5. Model.Staff list.
 6. Delete staff.
 7. Back to main menu.
 8. Quit program.

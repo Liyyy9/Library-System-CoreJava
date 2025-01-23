@@ -1,3 +1,8 @@
+import Controller.BookController;
+import Controller.MemberController;
+import Controller.StaffController;
+import Controller.UserInterface;
+
 import java.util.Scanner;
 
 public class Main {
@@ -5,16 +10,17 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         UserInterface userInterface = new UserInterface();
-        MemberInterface memberInterface = new MemberInterface();
-        StaffInterface staffInterface = new StaffInterface();
+        MemberController memberController = new MemberController();
+        StaffController staffController = new StaffController();
+        BookController bookController = new BookController();
 
-        // Set dependencies
-        userInterface.setMemberInterface(memberInterface);
-        userInterface.setStaffInterface(staffInterface);
-        memberInterface.setUserInterface(userInterface);
-        staffInterface.setUserInterface(userInterface);
+        userInterface.setMemberController(memberController);
+        userInterface.setStaffController(staffController);
+        userInterface.setBookController(bookController);
+        memberController.setUserInterface(userInterface);
+        staffController.setUserInterface(userInterface);
+        bookController.setUserInterface(userInterface);
 
-        // Start the user interface
         userInterface.start(scanner);
 
         scanner.close();

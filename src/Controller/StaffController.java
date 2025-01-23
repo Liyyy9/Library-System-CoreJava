@@ -1,13 +1,21 @@
+package Controller;
+
+import Model.Members;
+import Service.MemberService;
+import Service.StaffService;
+
 import java.util.Map;
 import java.util.Scanner;
 
-public class StaffInterface {
+public class StaffController {
     private UserInterface userInterface;
     private boolean running = true;
-    private final Staff staff;
+    private StaffService staffService = new StaffService();
+    private MemberService memberService = new MemberService();
+    private Members members = new Members();
 
-    public StaffInterface(){
-        this.staff = new Staff();
+    public StaffController(){
+        this.staffService = new StaffService();
     }
 
     public void setUserInterface(UserInterface userInterface) {
@@ -69,36 +77,44 @@ public class StaffInterface {
         System.out.println("Role: ");
         String role = scanner.nextLine();
 
-        staff.add(name, email, role);
+        staffService.add(name, email, role);
     }
 
     private void editStaff(Scanner scanner) {
         System.out.print("\nSearch for (name): ");
         String searchedName = scanner.nextLine();
 
-        staff.edit(searchedName, scanner);
+        staffService.edit(searchedName, scanner);
     }
 
     private void searchStaff(Scanner scanner) {
         System.out.print("\nSearch for (name):");
-        String searchedName = staff.cleanInput(scanner.nextLine());
+        String searchedName = members.cleanInput(scanner.nextLine());
 
-        staff.searchbyName(searchedName);
+        staffService.searchbyName(searchedName);
     }
     private void searchByRole(Scanner scanner) {
         System.out.print("\nRole: ");
-        String searchedRole = staff.cleanInput(scanner.nextLine());
+        String searchedRole = members.cleanInput(scanner.nextLine());
 
-        staff.searchByRole(searchedRole);
+        staffService.searchByRole(searchedRole);
     }
 
     private void listStaff() {
         System.out.println("\nList of Staff members:");
-        for (Map.Entry<String, String> member : staff.getMemberList().entrySet()) {
-            String[] parts = member.getValue().split(" ");
+        Map<String, String> memberList = staffService.getMemberList();
+
+        if(memberList.isEmpty()){
+            System.out.println("No staff members found!");
+            return;
+        }
+
+        for (Map.Entry<String, String> member : memberList.entrySet()) {
+            String[] parts = member.getValue().split(" \\| ");
+
             String name = member.getKey();
             String email = parts[0];
-            String role = parts[2];
+            String role = parts[1];
 
             System.out.printf("Name: %s, Email: %s, Role: %s\n", name, email, role);
         }
@@ -106,9 +122,9 @@ public class StaffInterface {
 
     private void deleteStaff(Scanner scanner) {
         System.out.print("Staff name to remove: ");
-        String cleanedSearchedName = staff.cleanInput(scanner.nextLine());
+        String cleanedSearchedName = members.cleanInput(scanner.nextLine());
 
-        staff.delete(cleanedSearchedName);
+        staffService.delete(cleanedSearchedName);
     }
 
 

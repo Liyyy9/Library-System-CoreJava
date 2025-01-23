@@ -1,12 +1,16 @@
+package Controller;
+
+import Service.MemberService;
+
 import java.util.Map;
 import java.util.Scanner;
 
-public class MemberInterface {
-    private final Members members = new Members();
+public class MemberController {
+    private final MemberService memberService = new MemberService();
     private UserInterface userInterface;
     private boolean running = true;
 
-    public MemberInterface(){   }
+    public MemberController(){   }
 
     public void setUserInterface(UserInterface userInterface) {
         this.userInterface = userInterface;
@@ -62,37 +66,37 @@ public class MemberInterface {
         System.out.print("Email: ");
         String email = scanner.nextLine();
 
-        members.add(name, email);
+        memberService.add(name, email);
     }
 
     public void editMember(Scanner scanner) {
         System.out.print("\nSearch for (name): ");
         String searchedName = scanner.nextLine();
 
-        members.edit(searchedName, scanner);
+        memberService.edit(searchedName, scanner);
     }
 
     public void searchByName(Scanner scanner) {
         System.out.print("\nSearch for (name): ");
         String searchedName = scanner.nextLine();
 
-        members.searchbyName(searchedName);
+        memberService.searchbyName(searchedName);
     }
 
     public void deleteMember(Scanner scanner) {
         System.out.print("\nName of member to delete: ");
         String searchedName = scanner.nextLine();
 
-        members.delete(searchedName);
+        memberService.delete(searchedName);
     }
 
     public void listMembers() {
-        if(members.getMemberList().isEmpty()){
+        if(memberService.getMemberList().isEmpty()){
             System.out.println("\nList is currently empty!\n");
         }
 
-        System.out.println("List of Members:");
-        for (Map.Entry<String, String> member : members.getMemberList().entrySet()) {
+        System.out.println("\nList of Members:");
+        for (Map.Entry<String, String> member : memberService.getMemberList().entrySet()) {
             System.out.println("Name: " + member.getKey() + ", Email: " + member.getValue());
         }
     }

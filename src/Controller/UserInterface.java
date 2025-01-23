@@ -1,22 +1,27 @@
+package Controller;
+
 import java.util.Scanner;
 
 
 public class UserInterface {
-    private MemberInterface memberInterface;
-    private StaffInterface staffInterface;
+    private MemberController memberController;
+    private StaffController staffController;
+    private BookController bookController;
     private boolean running;
 
     public UserInterface() {
         this.running = true;
     }
 
-    public void setMemberInterface(MemberInterface memberInterface) {
-        this.memberInterface = memberInterface;
+    public void setMemberController(MemberController memberController) {
+        this.memberController = memberController;
     }
 
-    public void setStaffInterface(StaffInterface staffInterface) {
-        this.staffInterface = staffInterface;
+    public void setStaffController(StaffController staffController) {
+        this.staffController = staffController;
     }
+
+    public void setBookController(BookController bookController){ this.bookController = bookController; }
 
     public void start(Scanner scanner) {
         System.out.println("\n=======================================================================");
@@ -38,8 +43,9 @@ public class UserInterface {
 
     public void inputReader(String input, Scanner scanner) {
         switch (input) {
-            case "1" -> memberInterface.start(scanner);
-            case "2" -> staffInterface.start(scanner);
+            case "1" -> memberController.start(scanner);
+            case "2" -> staffController.start(scanner);
+            case "3" -> bookController.start(scanner);
             case "4" -> {
                 System.out.println("""
                         
